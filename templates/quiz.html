@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>🎯 Quiz Time!</h2>
+
+{% if error %}
+<div class="empty-msg">
+    <p>{{ error }}</p>
+    <br>
+    <a href="{{ url_for('add_word') }}" class="btn btn-primary">Add Words</a>
+</div>
+{% else %}
+<div class="quiz-box">
+    <p class="question">What is the Portuguese word for:</p>
+    <h3 class="english-word">{{ correct_word.english }}</h3>
+
+    <form method="POST">
+        <input type="hidden" name="correct_id" value="{{ correct_word.id }}">
+        <div class="options">
+            {% for option in options %}
+            <button type="submit" name="chosen" value="{{ option }}" class="btn btn-option">
+                {{ option }}
+            </button>
+            {% endfor %}
+        </div>
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}

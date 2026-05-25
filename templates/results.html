@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="result-box">
+    {% if is_correct %}
+    <h2>✅ Correct!</h2>
+    <p>Well done! <strong>{{ correct_word.english }}</strong> in Portuguese is <strong>{{ correct_word.portuguese }}</strong></p>
+    {% else %}
+    <h2>❌ Wrong!</h2>
+    <p>You chose <strong>{{ chosen }}</strong> but the correct answer is <strong>{{ correct_word.portuguese }}</strong></p>
+    {% endif %}
+
+    <p class="score-tracker">Score so far: {{ correct }}/{{ total }}</p>
+
+    <div class="form-actions">
+        <a href="{{ url_for('quiz') }}" class="btn btn-primary">Next Question</a>
+    </div>
+
+    <br>
+    <form method="POST" action="{{ url_for('save_score') }}">
+        <input type="hidden" name="correct" value="{{ correct }}">
+        <input type="hidden" name="total" value="{{ total }}">
+        <p>
+            <label>Enter your name to save score:</label>
+            <input type="text" name="player" placeholder="Your name" required>
+        </p>
+        <button type="submit" class="btn btn-secondary">Save Score & Finish</button>
+    </form>
+</div>
+
+{% endblock %}
+

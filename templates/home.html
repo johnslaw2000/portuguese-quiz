@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>🏆 Leaderboard</h2>
+
+{% if scores|length == 0 %}
+<div class="empty-msg">
+    <p>No scores yet. Play a quiz and be the first on the board!</p>
+</div>
+{% else %}
+<table>
+    <tr>
+        <th>Player</th>
+        <th>Correct</th>
+        <th>Total</th>
+        <th>Score</th>
+    </tr>
+    {% for score in scores %}
+    <tr>
+        <td>{{ score.player }}</td>
+        <td>{{ score.correct }}</td>
+        <td>{{ score.total }}</td>
+        <td>{{ score.correct }}/{{ score.total }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+<br>
+<a href="{{ url_for('quiz') }}" class="btn btn-primary">Play Quiz</a>
+
+{% endblock %}
